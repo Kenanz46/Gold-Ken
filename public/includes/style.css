@@ -4,10 +4,20 @@
     src: url('Charm.otf') format('opentype');
     font-weight: normal;
     font-style: normal;
+    font-display: block;
+}
+
+/* الأنيمايشن المسؤول عن تحريك ألوان الخلفية */
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 body {
-    background: linear-gradient(135deg, #0d0d11, #1a1829, #0d0d11);
+    background: linear-gradient(-45deg, #0d0d11, #1e1b34, #2a1b08, #0b1320);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
     color: #dddddd;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
