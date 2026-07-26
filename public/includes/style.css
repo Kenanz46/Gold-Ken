@@ -1,15 +1,18 @@
 body {
-    background: #111111;
+    background: linear-gradient(135deg, #0d0d11, #1a1829, #0d0d11);
     color: #dddddd;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 20px;
     text-align: center;
+    min-height: 100vh;
 }
 
 h1 {
     color: #ffffff;
-    font-size: 28px;
+    font-size: 30px;
     margin: 10px 0 5px 0;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3); /* توهج خفيف للعنوان */
 }
 
 h3 {
@@ -21,7 +24,7 @@ h3 {
 
 hr {
     border: 0;
-    border-top: 1px solid #333333;
+    border-top: 1px solid rgba(255, 215, 0, 0.2);
     margin: 15px auto;
     width: 90%;
 }
@@ -30,23 +33,32 @@ hr {
     margin: 20px 0 30px 0;
 }
 
+/* زر الجيلبريك باللون الذهبي والتأثيرات الحركية */
 button {
-    background: #2563eb;
-    color: #ffffff;
+    background: linear-gradient(45deg, #e6b800, #ffaa00);
+    color: #000000;
     border: none;
     padding: 12px 35px;
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
-}
-
-button:disabled, button:hover:disabled {
-    background: #0b2253;
-    cursor: default;
+    border-radius: 25px; /* حواف دائرية أنيقة */
+    box-shadow: 0 4px 15px rgba(230, 184, 0, 0.4);
+    transition: all 0.3s ease;
 }
 
 button:hover {
-    background: #1d4ed8;
+    background: linear-gradient(45deg, #ffcc00, #ffbb00);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 204, 0, 0.6);
+}
+
+button:disabled, button:hover:disabled {
+    background: #333333;
+    color: #777777;
+    cursor: default;
+    transform: none;
+    box-shadow: none;
 }
 
 .main-layout {
@@ -60,24 +72,36 @@ button:hover {
     text-align: center;
 }
 
+/* الصورة/اللوغو بتأثير Glow ذهبي وحواف انسيابية */
 .media-box img {
     width: 90%;
     height: auto;
-    border: 1px solid #222222;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.4); /* توهج الصورة الذهبي */
+    transition: transform 0.3s ease;
 }
 
+.media-box img:hover {
+    transform: scale(1.03);
+}
+
+/* شاشة الكونسول بتأثير زجاجي مظلم (Glassmorphism) */
 #console {
     float: right;
     width: 70%;
-    background: #000000;
-    color: #00ff00;
+    background: rgba(0, 0, 0, 0.85);
+    color: #00ffcc; /* أخصر تيركواز مريح للعين */
     font-size: 14px;
+    font-family: 'Consolas', 'Courier New', monospace;
     padding: 15px;
     text-align: left;
     height: 290px;
     overflow-y: scroll;
     word-wrap: break-word;
-    border: 1px solid #222222;
+    border: 1px solid rgba(0, 255, 204, 0.2);
+    border-radius: 12px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.9);
 }
 
 #kernel-options {
@@ -89,16 +113,18 @@ input[type="radio"] {
     appearance: none;
     width: 1rem;
     height: 1rem;
-    border: 2px solid #555;
+    border: 2px solid #ffaa00;
     border-radius: 50%;
-    background-color: #fff;
+    background-color: #222;
     cursor: pointer;
+    vertical-align: middle;
 }
 
 input[type="radio"]:checked {
-    background-color: #00ff00;
+    background-color: #ffcc00;
+    box-shadow: 0 0 8px #ffcc00;
 }
 
-.mt-2{
+.mt-2 {
     margin-top: 2rem;
 }
