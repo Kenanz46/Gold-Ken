@@ -1,3 +1,11 @@
+/* تعريف الخط الجديد */
+@font-face {
+    font-family: 'RetroCharm';
+    src: url('Charm.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
     background: linear-gradient(135deg, #0d0d11, #1a1829, #0d0d11);
     color: #dddddd;
@@ -8,11 +16,14 @@ body {
     min-height: 100vh;
 }
 
+/* العنوان الرئيسي بالخط الجديد والتوهج الذهبي */
 h1 {
+    font-family: 'RetroCharm', 'Segoe UI', sans-serif;
     color: #ffffff;
-    font-size: 30px;
+    font-size: 38px; /* كبرنا الحجم شوي ليناسب ستايل الخط */
     margin: 10px 0 5px 0;
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3); /* توهج خفيف للعنوان */
+    text-shadow: 0 0 12px rgba(255, 215, 0, 0.5); /* توهج ذهبي فخم */
+    letter-spacing: 1px;
 }
 
 h3 {
@@ -91,7 +102,7 @@ button:disabled, button:hover:disabled {
     float: right;
     width: 70%;
     background: rgba(0, 0, 0, 0.85);
-    color: #00ffcc; /* أخصر تيركواز مريح للعين */
+    color: #00ffcc; /* أخضر تيركواز مريح للعين */
     font-size: 14px;
     font-family: 'Consolas', 'Courier New', monospace;
     padding: 15px;
