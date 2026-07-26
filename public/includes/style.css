@@ -22,7 +22,7 @@ h1 {
     color: #ffffff;
     font-size: 42px; /* كبرنا الحجم شوي ليناسب ستايل الخط */
     margin: 10px 0 5px 0;
-    text-shadow: 0 0 8px rgba(255, 215, 0, 0.1); /* توهج ذهبي فخم */
+    text-shadow: 0 0 8px rgba(255, 215, 0, 1); /* توهج ذهبي فخم */
     letter-spacing: 1px;
 }
 
