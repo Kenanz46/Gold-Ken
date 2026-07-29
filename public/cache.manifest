@@ -1,8 +1,9 @@
 CACHE MANIFEST
-# Version 1.2 - Gold-Ken Style Update
+# Version 1.3 - Gold-Ken Style Update with Font Fix
 
 CACHE:
 index.html
+includes/Charm.otf
 includes/cat.jpg
 includes/script.js
 includes/style.css
