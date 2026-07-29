@@ -7,33 +7,34 @@
     font-display: block;
 }
 
-/* حركة البقع الضوئية بالخلفية */
-@keyframes orbGlow {
+/* انميشن حركة الشبكة ثلاثية الأبعاد لتعطي عمق الحركة للأفق */
+@keyframes gridMove {
     0% {
-        transform: translate(0px, 0px) scale(1);
-        opacity: 0.4;
-    }
-    50% {
-        transform: translate(80px, 40px) scale(1.2);
-        opacity: 0.75;
+        background-position: 0 0;
     }
     100% {
-        transform: translate(0px, 0px) scale(1);
-        opacity: 0.4;
+        background-position: 0 60px;
+    }
+}
+
+/* انميشن نبض الإضاءة للنيون */
+@keyframes ambientPulse {
+    0%, 100% {
+        opacity: 0.5;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.85;
+        transform: scale(1.1);
     }
 }
 
 body {
-    background-color: #08090d;
-    /* رسم شبكة هندسية دقيقة بـ CSS خالص */
-    background-image: 
-        linear-gradient(rgba(255, 215, 0, 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 215, 0, 0.05) 1px, transparent 1px);
-    background-size: 40px 40px;
-    color: #e0e0e0;
+    background-color: #030306;
+    color: #e2e8f0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
-    padding: 25px;
+    padding: 30px 20px;
     box-sizing: border-box;
     min-height: 100vh;
     display: flex;
@@ -41,188 +42,233 @@ body {
     align-items: center;
     position: relative;
     overflow-x: hidden;
+    perspective: 1000px; /* تفعيل المنظور ثلاثي الأبعاد */
 }
 
-/* إضافة البقعة الضوئية الأولى (توهج ذهبي/برتقالي بأسفل الشاشة) */
+/* الطبقة الأولى: شبكة 3D مائلة في الأرضية تعطي عمق حقيقي */
 body::before {
     content: '';
     position: absolute;
-    top: 10%;
-    left: 15%;
-    width: 350px;
-    height: 350px;
-    background: radial-gradient(circle, rgba(255, 170, 0, 0.25) 0%, rgba(0, 0, 0, 0) 70%);
-    border-radius: 50%;
-    z-index: -1;
-    animation: orbGlow 8s ease-in-out infinite;
+    top: 20%;
+    left: -50%;
+    width: 200%;
+    height: 150%;
+    background-image: 
+        linear-gradient(rgba(255, 170, 0, 0.15) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 229, 255, 0.12) 1px, transparent 1px);
+    background-size: 60px 60px;
+    /* ميلان الأرضية لتعطي منظور 3D مستقبلي */
+    transform: rotateX(75deg);
+    transform-origin: top center;
+    animation: gridMove 3s linear infinite;
+    z-index: -2;
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%);
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%);
 }
 
-/* إضافة البقعة الضوئية الثانية (توهج أزرق نيون بأعلى الشاشة) */
+/* الطبقة الثانية: هالة ضوئية عميقة خلف العناوين والكروت */
 body::after {
     content: '';
     position: absolute;
-    bottom: 10%;
-    right: 15%;
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, rgba(0, 180, 255, 0.2) 0%, rgba(0, 0, 0, 0) 70%);
-    border-radius: 50%;
+    top: 15%;
+    width: 600px;
+    height: 350px;
+    background: radial-gradient(ellipse at center, rgba(147, 51, 234, 0.3) 0%, rgba(255, 136, 0, 0.2) 45%, transparent 70%);
     z-index: -1;
-    animation: orbGlow 10s ease-in-out infinite reverse;
+    border-radius: 50%;
+    filter: blur(40px);
+    animation: ambientPulse 6s ease-in-out infinite;
 }
 
-/* الهيدر والعناوين */
+/* العناوين بنمط النيون المشع */
 h1 {
     font-family: 'RetroCharm', 'Segoe UI', sans-serif;
     color: #ffffff;
-    font-size: 48px;
+    font-size: 52px;
     margin: 0;
-    text-shadow: 0 0 15px rgba(255, 215, 0, 0.9), 0 0 30px rgba(255, 140, 0, 0.5);
-    letter-spacing: 2px;
+    text-shadow: 
+        0 0 10px rgba(255, 215, 0, 0.8),
+        0 0 25px rgba(255, 140, 0, 0.6),
+        0 0 50px rgba(255, 100, 0, 0.4);
+    letter-spacing: 3px;
 }
 
 h3 {
-    color: #8a9ba8;
+    color: #94a3b8;
     font-size: 13px;
-    font-weight: 500;
-    margin: 5px 0 15px 0;
-    letter-spacing: 1px;
+    font-weight: 600;
+    margin: 6px 0 18px 0;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
 }
 
 hr {
     border: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.5), transparent);
-    margin: 10px 0 25px 0;
-    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #ffaa00, #00e5ff, transparent);
+    margin: 10px 0 30px 0;
+    width: 90%;
+    max-width: 900px;
+    opacity: 0.8;
 }
 
-/* شريط التحكم العلوي بتأثير زجاجي مظلم محدد بقوة */
+/* شريط التحكم الرئيسي: كرت زجاجي طافٍ بطبقات ظلال عميقة */
 .btn-container {
-    background: rgba(14, 16, 22, 0.82);
-    border: 1px solid rgba(255, 215, 0, 0.3);
-    border-radius: 18px;
-    padding: 20px 30px;
+    background: rgba(10, 12, 20, 0.85);
+    border: 1px solid rgba(255, 215, 0, 0.35);
+    /* حواف قص هندسية Sci-Fi */
+    clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px));
+    padding: 22px 35px;
     width: 90%;
     max-width: 900px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7), inset 0 0 15px rgba(255, 215, 0, 0.05);
-    margin-bottom: 25px;
+    /* ظلال خارجية متعددة لتعطي إحساس ارتفاع الكرت بالهواء */
+    box-shadow: 
+        0 20px 50px rgba(0, 0, 0, 0.9),
+        0 0 30px rgba(255, 170, 0, 0.15),
+        inset 0 1px 1px rgba(255, 255, 255, 0.2);
+    margin-bottom: 30px;
     box-sizing: border-box;
-    backdrop-filter: blur(8px);
+    backdrop-filter: blur(12px);
 }
 
 /* أزرار الخيارات */
 #kernel-options {
     display: flex;
-    gap: 15px;
+    gap: 20px;
     align-items: center;
-    margin: 0;
 }
 
 #kernel-options label {
     cursor: pointer;
     font-size: 15px;
-    font-weight: bold;
-    color: #ddd;
-    margin-left: 5px;
+    font-weight: 700;
+    color: #e2e8f0;
+    letter-spacing: 0.5px;
 }
 
 input[type="radio"] {
     -webkit-appearance: none;
     appearance: none;
-    width: 1.2rem;
-    height: 1.2rem;
-    border: 2px solid #ffaa00;
+    width: 1.3rem;
+    height: 1.3rem;
+    border: 2px solid #00e5ff;
     border-radius: 50%;
-    background-color: #000;
+    background-color: #05070a;
     cursor: pointer;
     vertical-align: middle;
-    transition: 0.2s;
+    transition: 0.3s;
 }
 
 input[type="radio"]:checked {
-    background-color: #ffaa00;
-    box-shadow: 0 0 12px #ffaa00;
+    background-color: #00e5ff;
+    box-shadow: 0 0 15px #00e5ff, inset 0 0 5px #fff;
+    border-color: #ffffff;
 }
 
-/* زر الجيلبريك الرئيسي البارز مع نيون قوي */
+/* زر الجيلبريك ثلاثي الأبعاد والبارز جداً */
 button#jeilbrek {
-    background: linear-gradient(135deg, #ffd700, #ff8c00);
-    color: #050508;
+    background: linear-gradient(135deg, #ffe600, #ff5500);
+    color: #000;
     border: none;
-    padding: 14px 45px;
+    padding: 16px 50px;
     font-size: 20px;
     font-weight: 900;
     cursor: pointer;
-    border-radius: 30px;
-    box-shadow: 0 0 25px rgba(255, 170, 0, 0.5);
-    transition: all 0.3s ease;
+    border-radius: 8px;
+    clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+    box-shadow: 
+        0 0 30px rgba(255, 136, 0, 0.6),
+        0 8px 0 #b33600; /* تجسيم السفلي للزر */
+    transition: all 0.2s ease;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
 }
 
 button#jeilbrek:hover {
-    transform: translateY(-3px) scale(1.03);
-    box-shadow: 0 0 35px rgba(255, 215, 0, 0.9);
+    transform: translateY(-2px);
+    box-shadow: 
+        0 0 45px rgba(255, 200, 0, 0.9),
+        0 10px 0 #b33600;
+}
+
+button#jeilbrek:active {
+    transform: translateY(4px);
+    box-shadow: 
+        0 0 20px rgba(255, 136, 0, 0.6),
+        0 2px 0 #b33600;
 }
 
 button#jeilbrek:disabled {
-    background: #22242e;
-    color: #555;
+    background: #1e293b;
+    color: #475569;
     box-shadow: none;
     transform: none;
+    clip-path: none;
+    border-radius: 8px;
 }
 
 .autoJb {
     display: flex;
     align-items: center;
     gap: 10px;
-    color: #bbb;
+    color: #cbd5e1;
     font-size: 14px;
+    font-weight: 600;
 }
 
 .autoJb input {
-    margin: 0;
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     accent-color: #ffaa00;
+    cursor: pointer;
 }
 
-/* التنسيق السفلي */
+/* التنسيق السفلي بنظام Grid عالي التباين */
 .main-layout {
     width: 90%;
     max-width: 900px;
     display: grid;
     grid-template-columns: 280px 1fr;
-    gap: 20px;
+    gap: 25px;
     align-items: start;
 }
 
+/* إطار الصورة بتأثير هولوغرام طافٍ */
 .media-box img {
     width: 100%;
     height: auto;
-    border-radius: 16px;
-    border: 1px solid rgba(255, 215, 0, 0.35);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 170, 0, 0.25);
+    border-radius: 12px;
+    border: 1px solid rgba(0, 229, 255, 0.4);
+    box-shadow: 
+        0 15px 35px rgba(0, 0, 0, 0.9),
+        0 0 25px rgba(0, 229, 255, 0.25);
+    transition: transform 0.4s ease;
 }
 
-/* كرت الكونسول النيون */
+.media-box img:hover {
+    transform: scale(1.03) rotate(0.5deg);
+}
+
+/* كرت شاشة الكونسول المستقبلية العمقية */
 #console {
     width: 100%;
-    height: 280px;
-    background: rgba(6, 8, 12, 0.92);
+    height: 290px;
+    background: rgba(4, 8, 15, 0.9);
     color: #00ffcc;
-    font-size: 13px;
+    font-size: 13.5px;
     font-family: 'Consolas', 'Courier New', monospace;
-    padding: 18px;
+    padding: 20px;
     box-sizing: border-box;
     overflow-y: auto;
     word-wrap: break-word;
-    border: 1px solid rgba(0, 255, 204, 0.35);
-    border-radius: 16px;
-    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.9), 0 0 15px rgba(0, 255, 204, 0.15);
-    line-height: 1.5;
+    border: 1px solid rgba(0, 255, 204, 0.4);
+    border-radius: 12px;
+    box-shadow: 
+        inset 0 0 25px rgba(0, 0, 0, 0.95),
+        0 15px 35px rgba(0, 0, 0, 0.8),
+        0 0 20px rgba(0, 255, 204, 0.15);
+    line-height: 1.6;
 }
