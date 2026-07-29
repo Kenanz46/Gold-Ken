@@ -4,8 +4,9 @@ const checkbox = document.getElementById('autoJbInput');
 const jeilbrekBtn = document.getElementById('jeilbrek');
 const UAElement = document.getElementById("UA");
 
+// جعل القيمة الافتراضية false دائماً إذا لم تكن محفوظة
 const storedAutoJb = localStorage.getItem("autoJb");
-let autoJbValue = storedAutoJb !== null ? storedAutoJb === "true" : true;
+let autoJbValue = storedAutoJb !== null ? storedAutoJb === "true" : false;
 
 // choose one of kernel exploits
 var exploitChain = localStorage.getItem("exploitChain") || "lapse";
@@ -96,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function() {
         lapseRadio.checked = true;
     }
 
-    // apply autojb localStorage value
+    // تطبيق حالة الخيار (رح تكون غير مفعلة بصورة افتراضية)
     checkbox.checked = autoJbValue;
 
     if (autoJbValue) jailbreakCountdown();
