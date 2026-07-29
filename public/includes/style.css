@@ -7,7 +7,7 @@
     font-display: block;
 }
 
-/* الأنيمايشن المسؤول عن تحريك ألوان الخلفية */
+/* الأنيمايشن المسؤول عن تحريك الخلفية */
 @keyframes gradientBG {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
@@ -15,137 +15,180 @@
 }
 
 body {
-    background: linear-gradient(-45deg, #0d0d11, #1e1b34, #2a1b08, #0b1320);
+    background: linear-gradient(-45deg, #09090e, #13111c, #1f1406, #090e17);
     background-size: 400% 400%;
-    animation: gradientBG 15s ease infinite;
-    color: #dddddd;
+    animation: gradientBG 12s ease infinite;
+    color: #e0e0e0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
-    padding: 20px;
-    text-align: center;
+    padding: 25px;
+    box-sizing: border-box;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-/* العنوان الرئيسي بالخط الجديد والتوهج الذهبي */
+/* الهيدر والعناوين */
 h1 {
     font-family: 'RetroCharm', 'Segoe UI', sans-serif;
     color: #ffffff;
-    font-size: 42px; /* كبرنا الحجم شوي ليناسب ستايل الخط */
-    margin: 10px 0 5px 0;
-    text-shadow: 0 0 8px rgba(255, 215, 0, 1); /* توهج ذهبي فخم */
-    letter-spacing: 1px;
+    font-size: 46px;
+    margin: 0;
+    text-shadow: 0 0 12px rgba(255, 215, 0, 0.8), 0 0 25px rgba(255, 215, 0, 0.4);
+    letter-spacing: 2px;
 }
 
 h3 {
-    color: #aaaaaa;
-    font-size: 14px;
-    font-weight: normal;
-    margin: 0 0 15px 0;
+    color: #8899a6;
+    font-size: 13px;
+    font-weight: 500;
+    margin: 5px 0 15px 0;
+    letter-spacing: 1px;
 }
 
 hr {
     border: 0;
-    border-top: 1px solid rgba(255, 215, 0, 0.2);
-    margin: 15px auto;
-    width: 90%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.4), transparent);
+    margin: 10px 0 25px 0;
+    width: 100%;
 }
 
+/* تحويل حاوية الأزرار إلى لوحة تحكم علوية Flexbox */
 .btn-container {
-    margin: 20px 0 30px 0;
-}
-
-/* زر الجيلبريك باللون الذهبي والتأثيرات الحركية */
-button {
-    background: linear-gradient(45deg, #e6b800, #ffaa00);
-    color: #000000;
-    border: none;
-    padding: 12px 35px;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 25px; /* حواف دائرية أنيقة */
-    box-shadow: 0 4px 15px rgba(230, 184, 0, 0.4);
-    transition: all 0.3s ease;
-}
-
-button:hover {
-    background: linear-gradient(45deg, #ffcc00, #ffbb00);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255, 204, 0, 0.6);
-}
-
-button:disabled, button:hover:disabled {
-    background: #333333;
-    color: #777777;
-    cursor: default;
-    transform: none;
-    box-shadow: none;
-}
-
-.main-layout {
-    width: 96%;
-    margin: 0 auto;
-}
-
-.media-box {
-    float: left;
-    width: 25%;
-    text-align: center;
-}
-
-/* الصورة/اللوغو بتأثير Glow ذهبي وحواف انسيابية */
-.media-box img {
+    background: rgba(20, 20, 28, 0.6);
+    border: 1px solid rgba(255, 215, 0, 0.15);
+    border-radius: 16px;
+    padding: 20px 30px;
     width: 90%;
-    height: auto;
-    border-radius: 15px;
-    border: 1px solid rgba(255, 215, 0, 0.3);
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.4); /* توهج الصورة الذهبي */
-    transition: transform 0.3s ease;
+    max-width: 900px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    margin-bottom: 25px;
+    box-sizing: border-box;
 }
 
-.media-box img:hover {
-    transform: scale(1.03);
-}
-
-/* شاشة الكونسول بتأثير زجاجي مظلم (Glassmorphism) */
-#console {
-    float: right;
-    width: 70%;
-    background: rgba(0, 0, 0, 0.85);
-    color: #00ffcc; /* أخضر تيركواز مريح للعين */
-    font-size: 14px;
-    font-family: 'Consolas', 'Courier New', monospace;
-    padding: 15px;
-    text-align: left;
-    height: 290px;
-    overflow-y: scroll;
-    word-wrap: break-word;
-    border: 1px solid rgba(0, 255, 204, 0.2);
-    border-radius: 12px;
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.9);
-}
-
+/* خيارات الراديو بشكل أزرار خيارات أنيقة */
 #kernel-options {
-    margin-bottom: 1rem;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin: 0;
+}
+
+#kernel-options label {
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    color: #ccc;
+    margin-left: 5px;
 }
 
 input[type="radio"] {
     -webkit-appearance: none;
     appearance: none;
-    width: 1rem;
-    height: 1rem;
+    width: 1.2rem;
+    height: 1.2rem;
     border: 2px solid #ffaa00;
     border-radius: 50%;
-    background-color: #222;
+    background-color: #111;
     cursor: pointer;
     vertical-align: middle;
+    transition: 0.2s;
 }
 
 input[type="radio"]:checked {
-    background-color: #ffcc00;
-    box-shadow: 0 0 8px #ffcc00;
+    background-color: #ffaa00;
+    box-shadow: 0 0 10px #ffaa00;
 }
 
-.mt-2 {
-    margin-top: 2rem;
+/* زر الجيلبريك الرئيسي بارز وفخم */
+button#jeilbrek {
+    background: linear-gradient(135deg, #ffd700, #ff8c00);
+    color: #0d0d11;
+    border: none;
+    padding: 14px 45px;
+    font-size: 20px;
+    font-weight: 900;
+    cursor: pointer;
+    border-radius: 30px;
+    box-shadow: 0 0 20px rgba(255, 170, 0, 0.4);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+button#jeilbrek:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+}
+
+button#jeilbrek:disabled {
+    background: #2a2a35;
+    color: #555;
+    box-shadow: none;
+    transform: none;
+}
+
+.autoJb {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #aaa;
+    font-size: 14px;
+}
+
+.autoJb input {
+    margin: 0;
+    width: 18px;
+    height: 18px;
+    accent-color: #ffaa00;
+}
+
+/* إعادة توزيع القسم السفلي بنظام Grid حديث بدل float */
+.main-layout {
+    width: 90%;
+    max-width: 900px;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 20px;
+    align-items: start;
+}
+
+.media-box {
+    width: 100%;
+}
+
+.media-box img {
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 215, 0, 0.25);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6), 0 0 15px rgba(255, 215, 0, 0.2);
+    transition: transform 0.3s;
+}
+
+.media-box img:hover {
+    transform: scale(1.02);
+}
+
+/* كرت الكونسول الفخم */
+#console {
+    width: 100%;
+    height: 280px;
+    background: rgba(10, 12, 16, 0.85);
+    color: #00ffcc;
+    font-size: 13px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    padding: 18px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    word-wrap: break-word;
+    border: 1px solid rgba(0, 255, 204, 0.25);
+    border-radius: 16px;
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.9), 0 8px 25px rgba(0,0,0,0.5);
+    line-height: 1.5;
 }
