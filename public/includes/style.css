@@ -1,4 +1,4 @@
-/* تعريف الخط الجديد */
+/* تعريف الخط */
 @font-face {
     font-family: 'RetroCharm';
     src: url('Charm.otf') format('opentype');
@@ -7,17 +7,29 @@
     font-display: block;
 }
 
-/* الأنيمايشن المسؤول عن تحريك الخلفية */
-@keyframes gradientBG {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+/* حركة البقع الضوئية بالخلفية */
+@keyframes orbGlow {
+    0% {
+        transform: translate(0px, 0px) scale(1);
+        opacity: 0.4;
+    }
+    50% {
+        transform: translate(80px, 40px) scale(1.2);
+        opacity: 0.75;
+    }
+    100% {
+        transform: translate(0px, 0px) scale(1);
+        opacity: 0.4;
+    }
 }
 
 body {
-    background: linear-gradient(-45deg, #09090e, #13111c, #1f1406, #090e17);
-    background-size: 400% 400%;
-    animation: gradientBG 12s ease infinite;
+    background-color: #08090d;
+    /* رسم شبكة هندسية دقيقة بـ CSS خالص */
+    background-image: 
+        linear-gradient(rgba(255, 215, 0, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 215, 0, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
     color: #e0e0e0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
@@ -27,20 +39,50 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* إضافة البقعة الضوئية الأولى (توهج ذهبي/برتقالي بأسفل الشاشة) */
+body::before {
+    content: '';
+    position: absolute;
+    top: 10%;
+    left: 15%;
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, rgba(255, 170, 0, 0.25) 0%, rgba(0, 0, 0, 0) 70%);
+    border-radius: 50%;
+    z-index: -1;
+    animation: orbGlow 8s ease-in-out infinite;
+}
+
+/* إضافة البقعة الضوئية الثانية (توهج أزرق نيون بأعلى الشاشة) */
+body::after {
+    content: '';
+    position: absolute;
+    bottom: 10%;
+    right: 15%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(0, 180, 255, 0.2) 0%, rgba(0, 0, 0, 0) 70%);
+    border-radius: 50%;
+    z-index: -1;
+    animation: orbGlow 10s ease-in-out infinite reverse;
 }
 
 /* الهيدر والعناوين */
 h1 {
     font-family: 'RetroCharm', 'Segoe UI', sans-serif;
     color: #ffffff;
-    font-size: 46px;
+    font-size: 48px;
     margin: 0;
-    text-shadow: 0 0 12px rgba(255, 215, 0, 0.8), 0 0 25px rgba(255, 215, 0, 0.4);
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.9), 0 0 30px rgba(255, 140, 0, 0.5);
     letter-spacing: 2px;
 }
 
 h3 {
-    color: #8899a6;
+    color: #8a9ba8;
     font-size: 13px;
     font-weight: 500;
     margin: 5px 0 15px 0;
@@ -50,28 +92,29 @@ h3 {
 hr {
     border: 0;
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.4), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.5), transparent);
     margin: 10px 0 25px 0;
     width: 100%;
 }
 
-/* تحويل حاوية الأزرار إلى لوحة تحكم علوية Flexbox */
+/* شريط التحكم العلوي بتأثير زجاجي مظلم محدد بقوة */
 .btn-container {
-    background: rgba(20, 20, 28, 0.6);
-    border: 1px solid rgba(255, 215, 0, 0.15);
-    border-radius: 16px;
+    background: rgba(14, 16, 22, 0.82);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    border-radius: 18px;
     padding: 20px 30px;
     width: 90%;
     max-width: 900px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7), inset 0 0 15px rgba(255, 215, 0, 0.05);
     margin-bottom: 25px;
     box-sizing: border-box;
+    backdrop-filter: blur(8px);
 }
 
-/* خيارات الراديو بشكل أزرار خيارات أنيقة */
+/* أزرار الخيارات */
 #kernel-options {
     display: flex;
     gap: 15px;
@@ -83,7 +126,7 @@ hr {
     cursor: pointer;
     font-size: 15px;
     font-weight: bold;
-    color: #ccc;
+    color: #ddd;
     margin-left: 5px;
 }
 
@@ -94,7 +137,7 @@ input[type="radio"] {
     height: 1.2rem;
     border: 2px solid #ffaa00;
     border-radius: 50%;
-    background-color: #111;
+    background-color: #000;
     cursor: pointer;
     vertical-align: middle;
     transition: 0.2s;
@@ -102,32 +145,32 @@ input[type="radio"] {
 
 input[type="radio"]:checked {
     background-color: #ffaa00;
-    box-shadow: 0 0 10px #ffaa00;
+    box-shadow: 0 0 12px #ffaa00;
 }
 
-/* زر الجيلبريك الرئيسي بارز وفخم */
+/* زر الجيلبريك الرئيسي البارز مع نيون قوي */
 button#jeilbrek {
     background: linear-gradient(135deg, #ffd700, #ff8c00);
-    color: #0d0d11;
+    color: #050508;
     border: none;
     padding: 14px 45px;
     font-size: 20px;
     font-weight: 900;
     cursor: pointer;
     border-radius: 30px;
-    box-shadow: 0 0 20px rgba(255, 170, 0, 0.4);
+    box-shadow: 0 0 25px rgba(255, 170, 0, 0.5);
     transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
 
 button#jeilbrek:hover {
-    transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 0 35px rgba(255, 215, 0, 0.9);
 }
 
 button#jeilbrek:disabled {
-    background: #2a2a35;
+    background: #22242e;
     color: #555;
     box-shadow: none;
     transform: none;
@@ -137,7 +180,7 @@ button#jeilbrek:disabled {
     display: flex;
     align-items: center;
     gap: 10px;
-    color: #aaa;
+    color: #bbb;
     font-size: 14px;
 }
 
@@ -148,7 +191,7 @@ button#jeilbrek:disabled {
     accent-color: #ffaa00;
 }
 
-/* إعادة توزيع القسم السفلي بنظام Grid حديث بدل float */
+/* التنسيق السفلي */
 .main-layout {
     width: 90%;
     max-width: 900px;
@@ -158,28 +201,19 @@ button#jeilbrek:disabled {
     align-items: start;
 }
 
-.media-box {
-    width: 100%;
-}
-
 .media-box img {
     width: 100%;
     height: auto;
     border-radius: 16px;
-    border: 1px solid rgba(255, 215, 0, 0.25);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6), 0 0 15px rgba(255, 215, 0, 0.2);
-    transition: transform 0.3s;
+    border: 1px solid rgba(255, 215, 0, 0.35);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 170, 0, 0.25);
 }
 
-.media-box img:hover {
-    transform: scale(1.02);
-}
-
-/* كرت الكونسول الفخم */
+/* كرت الكونسول النيون */
 #console {
     width: 100%;
     height: 280px;
-    background: rgba(10, 12, 16, 0.85);
+    background: rgba(6, 8, 12, 0.92);
     color: #00ffcc;
     font-size: 13px;
     font-family: 'Consolas', 'Courier New', monospace;
@@ -187,8 +221,8 @@ button#jeilbrek:disabled {
     box-sizing: border-box;
     overflow-y: auto;
     word-wrap: break-word;
-    border: 1px solid rgba(0, 255, 204, 0.25);
+    border: 1px solid rgba(0, 255, 204, 0.35);
     border-radius: 16px;
-    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.9), 0 8px 25px rgba(0,0,0,0.5);
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.9), 0 0 15px rgba(0, 255, 204, 0.15);
     line-height: 1.5;
 }
